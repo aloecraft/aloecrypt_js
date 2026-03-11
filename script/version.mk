@@ -4,10 +4,13 @@ __VER_PAT:=$(shell jq '.TECHNO_VERSION.patch' ${__TECHNO_PROJECT_FILE})
 __VER_BLD:=$(shell jq '.TECHNO_VERSION.build' ${__TECHNO_PROJECT_FILE})
 __VERSION:=${__VER_MAJ}.${__VER_MIN}.${__VER_PAT}
 __VERSION_FULL:=${__VERSION} build ${__VER_BLD}
-
+__TAG=v${__VERSION}
 
 _sync_version:
 	@tmp=$(mktemp) && jq '.version="${__VERSION}"' ./package.json > "$tmp" && mv "$tmp" ./package.json
+
+_tag_release:
+	@git tag ${__TAG}
 
 inc_maj:
 	@tmp=$$(mktemp) && jq '.TECHNO_VERSION.major += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
