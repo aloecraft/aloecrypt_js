@@ -1,121 +1,152 @@
+// ./src/session/message.ts
+// License: Apache-2.0 (disclaimer at bottom of file)
 import { PluginModel } from "../_plugin.js";
-import { PartyCHALLENGE, PartyCIPHER, PartyINTRO, PartyRESPONSE } from "./builder.js";
+import {
+  PartyCHALLENGE,
+  PartyCIPHER,
+  PartyINTRO,
+  PartyRESPONSE,
+} from "./builder.js";
 
 export class MsgACK extends PluginModel {
-    cipher: PartyCIPHER;
-    challenge: PartyCHALLENGE;
+  cipher: PartyCIPHER;
+  challenge: PartyCHALLENGE;
 
-    constructor(fields: { cipher: PartyCIPHER; challenge: PartyCHALLENGE }) {
-        super();
-        this.cipher = fields.cipher;
-        this.challenge = fields.challenge;
-    }
+  constructor(fields: { cipher: PartyCIPHER; challenge: PartyCHALLENGE }) {
+    super();
+    this.cipher = fields.cipher;
+    this.challenge = fields.challenge;
+  }
 
-    toMsgpack(): Record<string, unknown> {
-        return {
-            cipher: this.cipher.toMsgpack(),
-            challenge: this.challenge.toMsgpack(),
-        };
-    }
+  toMsgpack(): Record<string, unknown> {
+    return {
+      cipher: this.cipher.toMsgpack(),
+      challenge: this.challenge.toMsgpack(),
+    };
+  }
 
-    static fromMsgpack(data: Record<string, unknown>): MsgACK {
-        return new MsgACK({
-            cipher: PartyCIPHER.fromMsgpack(data.cipher as Record<string, unknown>),
-            challenge: PartyCHALLENGE.fromMsgpack(data.challenge as Record<string, unknown>),
-        });
-    }
+  static fromMsgpack(data: Record<string, unknown>): MsgACK {
+    return new MsgACK({
+      cipher: PartyCIPHER.fromMsgpack(data.cipher as Record<string, unknown>),
+      challenge: PartyCHALLENGE.fromMsgpack(
+        data.challenge as Record<string, unknown>,
+      ),
+    });
+  }
 }
 
 export class MsgHELLO extends PluginModel {
-    address: Uint8Array;
-    intro: PartyINTRO;
+  address: Uint8Array;
+  intro: PartyINTRO;
 
-    constructor(fields: { address: Uint8Array; intro: PartyINTRO }) {
-        super();
-        this.address = fields.address;
-        this.intro = fields.intro;
-    }
+  constructor(fields: { address: Uint8Array; intro: PartyINTRO }) {
+    super();
+    this.address = fields.address;
+    this.intro = fields.intro;
+  }
 
-    toMsgpack(): Record<string, unknown> {
-        return {
-            address: this.address,
-            intro: this.intro.toMsgpack(),
-        };
-    }
+  toMsgpack(): Record<string, unknown> {
+    return {
+      address: this.address,
+      intro: this.intro.toMsgpack(),
+    };
+  }
 
-    static fromMsgpack(data: Record<string, unknown>): MsgHELLO {
-        return new MsgHELLO({
-            address: data.address as Uint8Array,
-            intro: PartyINTRO.fromMsgpack(data.intro as Record<string, unknown>),
-        });
-    }
+  static fromMsgpack(data: Record<string, unknown>): MsgHELLO {
+    return new MsgHELLO({
+      address: data.address as Uint8Array,
+      intro: PartyINTRO.fromMsgpack(data.intro as Record<string, unknown>),
+    });
+  }
 }
 
 export class MsgSYN extends PluginModel {
-    intro: PartyINTRO;
-    cipher: PartyCIPHER;
+  intro: PartyINTRO;
+  cipher: PartyCIPHER;
 
-    constructor(fields: { intro: PartyINTRO; cipher: PartyCIPHER }) {
-        super();
-        this.intro = fields.intro;
-        this.cipher = fields.cipher;
-    }
+  constructor(fields: { intro: PartyINTRO; cipher: PartyCIPHER }) {
+    super();
+    this.intro = fields.intro;
+    this.cipher = fields.cipher;
+  }
 
-    toMsgpack(): Record<string, unknown> {
-        return {
-            intro: this.intro.toMsgpack(),
-            cipher: this.cipher.toMsgpack(),
-        };
-    }
+  toMsgpack(): Record<string, unknown> {
+    return {
+      intro: this.intro.toMsgpack(),
+      cipher: this.cipher.toMsgpack(),
+    };
+  }
 
-    static fromMsgpack(data: Record<string, unknown>): MsgSYN {
-        return new MsgSYN({
-            intro: PartyINTRO.fromMsgpack(data.intro as Record<string, unknown>),
-            cipher: PartyCIPHER.fromMsgpack(data.cipher as Record<string, unknown>),
-        });
-    }
+  static fromMsgpack(data: Record<string, unknown>): MsgSYN {
+    return new MsgSYN({
+      intro: PartyINTRO.fromMsgpack(data.intro as Record<string, unknown>),
+      cipher: PartyCIPHER.fromMsgpack(data.cipher as Record<string, unknown>),
+    });
+  }
 }
 
 export class MsgSYNACK extends PluginModel {
+  challenge: PartyCHALLENGE;
+  challenge_response: PartyRESPONSE;
+
+  constructor(fields: {
     challenge: PartyCHALLENGE;
     challenge_response: PartyRESPONSE;
+  }) {
+    super();
+    this.challenge = fields.challenge;
+    this.challenge_response = fields.challenge_response;
+  }
 
-    constructor(fields: { challenge: PartyCHALLENGE; challenge_response: PartyRESPONSE }) {
-        super();
-        this.challenge = fields.challenge;
-        this.challenge_response = fields.challenge_response;
-    }
+  toMsgpack(): Record<string, unknown> {
+    return {
+      challenge: this.challenge.toMsgpack(),
+      challenge_response: this.challenge_response.toMsgpack(),
+    };
+  }
 
-    toMsgpack(): Record<string, unknown> {
-        return {
-            challenge: this.challenge.toMsgpack(),
-            challenge_response: this.challenge_response.toMsgpack(),
-        };
-    }
-
-    static fromMsgpack(data: Record<string, unknown>): MsgSYNACK {
-        return new MsgSYNACK({
-            challenge: PartyCHALLENGE.fromMsgpack(data.challenge as Record<string, unknown>),
-            challenge_response: PartyRESPONSE.fromMsgpack(data.challenge_response as Record<string, unknown>),
-        });
-    }
+  static fromMsgpack(data: Record<string, unknown>): MsgSYNACK {
+    return new MsgSYNACK({
+      challenge: PartyCHALLENGE.fromMsgpack(
+        data.challenge as Record<string, unknown>,
+      ),
+      challenge_response: PartyRESPONSE.fromMsgpack(
+        data.challenge_response as Record<string, unknown>,
+      ),
+    });
+  }
 }
 
 export class MsgWELCOME extends PluginModel {
-    challenge_response: PartyRESPONSE;
+  challenge_response: PartyRESPONSE;
 
-    constructor(fields: { challenge_response: PartyRESPONSE }) {
-        super();
-        this.challenge_response = fields.challenge_response;
-    }
+  constructor(fields: { challenge_response: PartyRESPONSE }) {
+    super();
+    this.challenge_response = fields.challenge_response;
+  }
 
-    toMsgpack(): Record<string, unknown> {
-        return { challenge_response: this.challenge_response.toMsgpack() };
-    }
+  toMsgpack(): Record<string, unknown> {
+    return { challenge_response: this.challenge_response.toMsgpack() };
+  }
 
-    static fromMsgpack(data: Record<string, unknown>): MsgWELCOME {
-        return new MsgWELCOME({
-            challenge_response: PartyRESPONSE.fromMsgpack(data.challenge_response as Record<string, unknown>),
-        });
-    }
+  static fromMsgpack(data: Record<string, unknown>): MsgWELCOME {
+    return new MsgWELCOME({
+      challenge_response: PartyRESPONSE.fromMsgpack(
+        data.challenge_response as Record<string, unknown>,
+      ),
+    });
+  }
 }
+// Copyright Michael Godfrey 2026 | aloecraft.org <michael@aloecraft.org>
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
