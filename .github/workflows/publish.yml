@@ -42,7 +42,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm ci
@@ -55,6 +54,15 @@ jobs:
 
       - name: Clear stale npmrc
         run: rm -f ~/.npmrc
+
+      - name: Debug auth
+        run: |
+          echo "--- ~/.npmrc ---"
+          cat ~/.npmrc || echo "no ~/.npmrc"
+          echo "--- .npmrc ---"
+          cat .npmrc || echo "no .npmrc"
+          echo "--- npm whoami ---"
+          npm whoami || echo "not logged in"
 
       - name: Publish
         run: npm publish
