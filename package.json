@@ -1,6 +1,6 @@
 {
   "name": "@aloecraft/aloecrypt",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Post-quantum secure messaging library for JavaScript and TypeScript",
   "type": "module",
   "main": "./dist/index.js",

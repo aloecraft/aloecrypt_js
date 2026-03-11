@@ -5,14 +5,18 @@ __VER_BLD:=$(shell jq '.TECHNO_VERSION.build' ${__TECHNO_PROJECT_FILE})
 __VERSION:=${__VER_MAJ}.${__VER_MIN}.${__VER_PAT}
 __VERSION_FULL:=${__VERSION} build ${__VER_BLD}
 
+
+_sync_version:
+	@tmp=$(mktemp) && jq '.version="${__VERSION}"' ./package.json > "$tmp" && mv "$tmp" ./package.json
+
 inc_maj:
-	tmp=$$(mktemp) && jq '.TECHNO_VERSION.major += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
+	@tmp=$$(mktemp) && jq '.TECHNO_VERSION.major += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
 
 inc_min:
-	tmp=$$(mktemp) && jq '.TECHNO_VERSION.minor += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
+	@tmp=$$(mktemp) && jq '.TECHNO_VERSION.minor += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
 
 inc_pat:
-	tmp=$$(mktemp) && jq '.TECHNO_VERSION.patch += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
+	@tmp=$$(mktemp) && jq '.TECHNO_VERSION.patch += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
 
 inc_build:
-	tmp=$$(mktemp) && jq '.TECHNO_VERSION.build += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
+	@tmp=$$(mktemp) && jq '.TECHNO_VERSION.build += 1' ${__TECHNO_PROJECT_FILE} > "$$tmp" && mv "$$tmp" ${__TECHNO_PROJECT_FILE}
