@@ -37,7 +37,7 @@
   ],
   "author": "Michael Godfrey <michael@aloecraft.org>",
   "license": "Apache-2.0",
-  "homepage": "https://aloecraft.org",
+  "homepage": "https://aloecrypt-js.aloecraft.org",
   "repository": {
     "type": "git",
     "url": "https://github.com/Aloecraft-org/aloecrypt_js"
