@@ -1,0 +1,8 @@
+src/
+.bin/
+serve.mjs
+index.html
+tsconfig.json
+.technoproj
+script/
+Makefile

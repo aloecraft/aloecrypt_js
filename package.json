@@ -1,0 +1,62 @@
+{
+  "name": "@aloecraft/aloecrypt",
+  "version": "0.1.0",
+  "description": "Post-quantum secure messaging library for JavaScript and TypeScript",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && cp .bin/aloecrypt_plugin.wasm dist/aloecrypt_plugin.wasm",
+    "bundle": "esbuild dist/index.js --bundle --format=esm --outfile=dist/bundle.js --external:node:*",
+    "test": "npm run build && node dist/test.js",
+    "serve": "node serve.mjs",
+    "prepublishOnly": "npm run build",
+    "docs": "typedoc"
+  },
+  "keywords": [
+    "cryptography",
+    "post-quantum",
+    "pqc",
+    "ml-kem",
+    "ml-dsa",
+    "kyber",
+    "dilithium",
+    "webassembly",
+    "wasm"
+  ],
+  "author": "Michael Godfrey <michael@aloecraft.org>",
+  "license": "Apache-2.0",
+  "homepage": "https://aloecraft.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aloecraft-org/aloecrypt_js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@extism/extism": "^2.0.0-rc13",
+    "@msgpack/msgpack": "^3.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.4.0",
+    "esbuild": "^0.27.3",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.28.17",
+    "typedoc-plugin-markdown": "^4.10.0",
+    "typescript": "^5.9.3",
+    "typedoc": "^0.27.0",
+    "typedoc-plugin-markdown": "^4.0.0"
+  }
+}

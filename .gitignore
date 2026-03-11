@@ -1,0 +1,9 @@
+.nogit
+.dump
+.xtrpatch
+dist
+node_modules
+x.patch
+x.md
+/target
+**/__pycache__

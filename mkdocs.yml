@@ -1,0 +1,46 @@
+site_name: Aloecrypt JS
+site_url: https://aloecrypt-js.aloecraft.org
+site_description: Post-quantum secure messaging library for JavaScript and TypeScript
+site_author: Michael Godfrey
+
+repo_name: Aloecraft-org/aloecrypt_js
+repo_url: https://github.com/Aloecraft-org/aloecrypt_js
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: cyan
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - toc.integrate
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - API Reference:
+    - Overview: api/index.md
+    - Session: api/session_index.md
+    - Builder: api/session_builder.md
+    - Signatory: api/signatory.md
+    - KEM: api/kem.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - toc:
+      permalink: true
+
+use_directory_urls: true
+docs_dir: docs
+site_dir: site

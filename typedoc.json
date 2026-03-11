@@ -1,0 +1,17 @@
+{
+  "plugin": ["typedoc-plugin-markdown"],
+  "entryPoints": ["src/index.ts"],
+  "out": "docs/api",
+  "readme": "none",
+  "hidePageHeader": true,
+  "hideBreadcrumbs": false,
+  "useCodeBlocks": true,
+  "parametersFormat": "table",
+  "propertiesFormat": "table",
+  "enumMembersFormat": "table",
+  "typeDeclarationFormat": "table",
+  "indexFormat": "table",
+  "outputFileStrategy": "members",
+  "fileExtension": ".md",
+  "tsconfig": "./tsconfig.json"
+}

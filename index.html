@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><title>aloecrypt test</title></head>
+<body>
+<pre id="output"></pre>
+<script type="module">
+    import { initPlugin, DilithiumSigner, SessionBuilder, performHandshake } from "./dist/bundle.js";
+
+    async function main() {
+        const wasm = await fetch(".bin/aloecrypt_plugin.wasm").then(r => r.arrayBuffer());
+        await initPlugin(wasm);
+
+        const signerA = await DilithiumSigner.new();
+        const signerB = await DilithiumSigner.new();
+
+        const builderA = await SessionBuilder.create(signerB.address, signerA);
+        const builderB = await SessionBuilder.create(signerA.address, signerB);
+
+        const [sessionA, sessionB] = await performHandshake(builderA, builderB);
+
+        const ciphertext = await sessionA.encrypt(new TextEncoder().encode("hello from session a"));
+        const plaintext = new TextDecoder().decode(await sessionB.decrypt(ciphertext));
+
+        document.getElementById("output").textContent = plaintext;
+    }
+
+    main().catch(e => {
+        document.getElementById("output").textContent = e.toString();
+    });
+</script>
+</body>
+</html>
