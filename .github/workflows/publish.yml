@@ -70,4 +70,4 @@ jobs:
             | node -e "process.stdin.resume();let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).value))")
           echo "Token length: ${#OIDC_TOKEN}"
           echo "npm version: $(npm --version)"
-          NPM_ID_TOKEN=$OIDC_TOKEN npm publish --verbose 2>&1 | head -50
+          NPM_ID_TOKEN=$OIDC_TOKEN npm publish --verbose

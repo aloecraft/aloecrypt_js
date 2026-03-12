@@ -50,7 +50,9 @@ await initPlugin(wasm);
 
 ## Quick example
 ```typescript
-import { DilithiumSigner, SessionBuilder, performHandshake } from "@aloecraft/aloecrypt";
+import { initPluginFromBundle, DilithiumSigner, SessionBuilder, performHandshake } from "@aloecraft/aloecrypt";
+
+await initPluginFromBundle();
 
 const EMPTY_TIMESTAMP = new Uint8Array(8);
 
